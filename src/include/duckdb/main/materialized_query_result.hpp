@@ -11,10 +11,50 @@
 #include "duckdb/common/types/column/column_data_collection.hpp"
 #include "duckdb/common/winapi.hpp"
 #include "duckdb/main/query_result.hpp"
+#include <iostream>
+#include <vector>
+#include <memory>
 
 namespace duckdb {
 
 class ClientContext;
+
+// Base class for polymorphism
+struct Base {
+    virtual ~Base() {} // Make sure to define a virtual destructor
+};
+
+// Derived class for integers
+struct IntData : public Base {
+    int value;
+
+    // Constructor taking an integer argument
+    explicit IntData(int val) : value(val) {}
+};
+
+// Derived class for doubles
+struct DoubleData : public Base {
+    double value;
+
+    // Constructor taking a double argument
+    explicit DoubleData(double val) : value(val) {}
+};
+
+// Derived class for strings
+struct StringData : public Base {
+    string value;
+
+    // Constructor taking a const char* argument
+    explicit StringData(string val) : value(val) {}
+};
+
+// Derived class for boolean
+struct BoolData : public Base {
+    bool value;
+
+    // Constructor taking a boolean argument
+    explicit BoolData(bool val) : value(val) {}
+};
 
 class MaterializedQueryResult : public QueryResult {
 public:
@@ -36,6 +76,7 @@ public:
 	DUCKDB_API unique_ptr<DataChunk> FetchRaw() override;
 	//! Converts the QueryResult to a string
 	DUCKDB_API string ToString() override;
+	DUCKDB_API std::vector<unique_ptr<Base>> getContents();
 	DUCKDB_API string ToBox(ClientContext &context, const BoxRendererConfig &config) override;
 
 	//! Gets the (index) value of the (column index) column.
