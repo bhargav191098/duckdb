@@ -30,11 +30,11 @@ std::vector<unique_ptr<Base>> MaterializedQueryResult::getContents() {
 			for (idx_t col_idx = 0; col_idx < coll.ColumnCount(); col_idx++) {
 				auto val = row.GetValue(col_idx);	
 				if(val.IsNull() == false) {
-					std::cout<<val<<std::endl;
+					//std::cout<<val<<std::endl;
 					auto dataType = val.GetTypeMutable();
 					string typeName = dataType.ToString();
-					std::cout<<typeName<<std::endl;
-					std::cout<<typeid(val).name()<<std::endl;
+					// std::cout<<typeName<<std::endl;
+					// std::cout<<typeid(val).name()<<std::endl;
 
 					if(typeName == "BOOLEAN") {
 						bool native_bool = val.GetValue<bool>();
