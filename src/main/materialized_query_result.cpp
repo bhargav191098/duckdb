@@ -22,11 +22,12 @@ MaterializedQueryResult::MaterializedQueryResult(ErrorData error)
 }
 
 
-std::vector<unique_ptr<Base>> MaterializedQueryResult::getContents() {
-	std::vector<unique_ptr<Base>> dataVector;
+std::vector<vector<unique_ptr<Base>>> MaterializedQueryResult::getContents() {
+	std::vector<vector<unique_ptr<Base>>> overallResult;
 	if(success) {
 		auto &coll = Collection();
 		for (auto &row : coll.Rows()) {
+			std::vector<unique_ptr<Base>> dataVector;
 			for (idx_t col_idx = 0; col_idx < coll.ColumnCount(); col_idx++) {
 				auto val = row.GetValue(col_idx);	
 				if(val.IsNull() == false) {
@@ -57,10 +58,11 @@ std::vector<unique_ptr<Base>> MaterializedQueryResult::getContents() {
 						dataVector.push_back(make_uniq<duckdb::StringData>(strData));
 					}
 				}
-			}	
+			}
+			overallResult.push_back(std::move(dataVector));	
 		}
 	}
-	return dataVector;
+	return overallResult;
 }
 
 

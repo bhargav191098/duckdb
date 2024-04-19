@@ -76,7 +76,7 @@ public:
 	DUCKDB_API unique_ptr<DataChunk> FetchRaw() override;
 	//! Converts the QueryResult to a string
 	DUCKDB_API string ToString() override;
-	DUCKDB_API std::vector<unique_ptr<Base>> getContents();
+	DUCKDB_API std::vector<vector<unique_ptr<Base>>> getContents();
 	DUCKDB_API string ToBox(ClientContext &context, const BoxRendererConfig &config) override;
 
 	//! Gets the (index) value of the (column index) column.
