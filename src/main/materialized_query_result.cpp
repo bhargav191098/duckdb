@@ -46,8 +46,13 @@ std::vector<vector<unique_ptr<Base>>> MaterializedQueryResult::getContents() {
 						int64_t native_bigint = val.GetValue<int64_t>();
 						duckdb::BigIntData bigintData = duckdb::BigIntData(native_bigint);
 						dataVector.push_back(make_uniq<duckdb::BigIntData>(bigintData));
+					}
+					else if(typeName == "UBIGINT"){
+						uint64_t native_bigint = val.GetValue<uint64_t>();
+						duckdb::UBigIntData bigintData = duckdb::UBigIntData(native_bigint);
+						dataVector.push_back(make_uniq<duckdb::UBigIntData>(bigintData));
 					}     
-					else if(typeName == "UBIGINT" || typeName == "USMALLINT" || typeName == "UTINYINT" || typeName == "INTEGER" || typeName=="SMALLINT" || typeName == "TINYINT") {
+					else if(typeName == "USMALLINT" || typeName == "UTINYINT" || typeName == "INTEGER" || typeName=="SMALLINT" || typeName == "TINYINT") {
 						int native_int = val.GetValue<int>();
 						duckdb::IntData intData = duckdb::IntData(native_int);
 						dataVector.push_back(make_uniq<duckdb::IntData>(intData));

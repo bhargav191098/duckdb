@@ -38,6 +38,12 @@ struct BigIntData: public Base{
 	explicit BigIntData(int64_t val): value(val){}
 };
 
+struct UBigIntData: public Base{
+	uint64_t value;
+
+	explicit UBigIntData(uint64_t val): value(val){}
+};
+
 // Derived class for doubles
 struct DoubleData : public Base {
     double value;
