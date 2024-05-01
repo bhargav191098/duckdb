@@ -34,7 +34,7 @@ struct IntData : public Base {
 
 struct BigIntData: public Base{
 	int64_t value;
-
+	
 	explicit BigIntData(int64_t val): value(val){}
 };
 
