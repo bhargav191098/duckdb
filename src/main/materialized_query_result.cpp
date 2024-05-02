@@ -23,7 +23,7 @@ MaterializedQueryResult::MaterializedQueryResult(ErrorData error)
 
 
 std::vector<vector<unique_ptr<Base>>> MaterializedQueryResult::getContents() {
-	std::vector<vector<unique_ptr<Base>>> overallResult;
+	std::vector<vector<unique_ptr<Base>>> overallResult;     
 	if(success) {
 		auto &coll = Collection();
 		for (auto &row : coll.Rows()) {
